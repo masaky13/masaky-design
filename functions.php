@@ -3,47 +3,9 @@
 require_once('functions/cus_functions.php');
 require_once('functions/init.php');
 
-add_action('init', 'register_blog_cat_custom_post');
-function register_blog_cat_custom_post() {
-    register_taxonomy(
-        'project',
-        'post',
-        array(
-            'hierarchical' => false,
-            'label' => 'project',
-            'show_ui' => true,
-            'query_var' => true,
-            'rewrite' => true,
-            'singular_label' => 'project'
-        )
-    );
-}
-
-function remove_parent_theme_actions() {
-  remove_action('wp_enqueue_scripts', 'st_enqueue_styles', 10);
-  remove_action('wp_enqueue_scripts', 'st_enqueue_scripts', 10);
-}
-add_action('init','remove_parent_theme_actions');
-
-
-// if( !is_admin() ){
-//   add_action('wp_enqueue_scripts', 'bzb_add_style', 9);
-//   function bzb_register_style(){
-//
-//     wp_register_style( 'base-css', get_template_directory_uri().'/base.css' );
-//     wp_register_style( 'main-css', get_stylesheet_directory_uri().'/style.css',array('base-css') );
-//   }
-//   function bzb_add_style(){
-//     bzb_register_style();
-//     wp_enqueue_style('base-css');
-//     wp_enqueue_style('main-css');
-//   }
-// }
-
 /* JavaScript
 * ---------------------------------------- */
-
-if(!is_admin()) {
+if( !is_admin() ) {
   add_action('wp_enqueue_scripts', 'bzb_add_script');
   function bzb_register_script(){
     $thema_pass = get_stylesheet_directory_uri();
@@ -58,8 +20,8 @@ if(!is_admin()) {
     wp_register_script( 'ionicons-script', 'https://unpkg.com/ionicons@4.5.5/dist/ionicons.js', array(), false, true );
     // wp_register_script( 'custom-script', $thema_pass .'/js/custom.js', array('jquery-cdn'), false, true );
     wp_enqueue_script( 'custom-script', $thema_pass.'/js/custom.js?'.filemtime( get_stylesheet_directory().'/js/custom.js'), array('jquery-cdn'));
-
   }
+
   function bzb_add_script() {
     bzb_register_script();
     wp_enqueue_script( 'jquery-cdn' );
@@ -72,26 +34,23 @@ if(!is_admin()) {
     wp_enqueue_script( 'custom-script' );
     // JSへ変数受け渡し
     $queried_object = get_queried_object();
-    $bkedata = array(
+    $sitedata = array(
       'url' => home_url(),
       'term' => $queried_object->slug,
       'taxonomy' => $queried_object->taxonomy
       // 'foundpost' => $wp_query->found_posts
     );
-    wp_localize_script( 'custom-script', 'siteinfo', $bkedata );
+    wp_localize_script( 'custom-script', 'sitedata', $sitedata );
   }
-}
-
-if(!(is_admin() )) {
+  add_filter( 'clean_url', 'add_async_to_enqueue_script', 11, 1 );
   function add_async_to_enqueue_script( $url ) {
       if( FALSE === strpos( $url, '.js' ) ) return $url;
       if( strpos( $url, 'jquery.min.js' ) === true ) return $url;
       return "$url' defer charset='UTF-8";
   }
-  add_filter( 'clean_url', 'add_async_to_enqueue_script', 11, 1 );
 }
 
-// Links
+add_action('wp_enqueue_scripts', 'enqueue_sytle_script');
 function enqueue_sytle_script() {
   // CSS
   $thema_pass = get_stylesheet_directory_uri();
@@ -102,17 +61,9 @@ function enqueue_sytle_script() {
   // wp_enqueue_style('ionicons', 'https://fonts.googleapis.com/icon?family=Material+Icons', array(), false, 'all');
   // wp_enqueue_style('style', $thema_pass.'/style.css', array(), false, 'all');
   wp_enqueue_style('style', $thema_pass.'/style.css', array(), filemtime( get_stylesheet_directory().'/style.css' ), 'all');
-
   // echo '<link rel="shortcut icon" type="image/x-icon" href="'.$thema_pass.'/images/favicon.ico" />'; //ファビコン
   // echo '<link rel="apple-touch-icon" sizes="192x192" href="'.$thema_pass.'/images/touchicon.png" />'; //タッチアイコン
   // JS
-}
-add_action('wp_enqueue_scripts', 'enqueue_sytle_script');
-
-// 抜粋文字
-function st_custom_excerpt_length($length) {
-  $excerptcount = 100;
-  return $excerptcount;
 }
 
 //スマートフォンを判別
@@ -137,77 +88,9 @@ function is_mobile(){
     return preg_match($pattern, $_SERVER['HTTP_USER_AGENT']);
 }
 
-// メディア画像サイズ　一覧表示用
-//add_image_size( 'archive-post-thumbnail', 180, 120 , true );
-
-
-if( !defined( 'ABSPATH' ) ) {
-  exit;
-}
-
-
-function bk_ajax_loadpost(){
-    global $wpdb;
-    $now_post_num = $_POST['now_post_num'];
-    $get_post_num = $_POST['get_post_num'];
-    $term = $_POST['term'];
-    // 取得したい数より1記事多い記事数取得
-    $next_get_post_num = $get_post_num + 1;
-    if( $term !== 'WORKS' ) {
-
-      $sql = "SELECT ID, post_title FROM {$wpdb->posts}
-      INNER JOIN {$wpdb->term_relationships} ON {$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id
-      INNER JOIN {$wpdb->term_taxonomy} ON {$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->term_taxonomy}.term_id
-      INNER JOIN {$wpdb->terms} ON {$wpdb->term_taxonomy}.term_id = {$wpdb->terms}.term_id
-      WHERE name LIKE '{$term}' AND post_status LIKE 'publish' ORDER BY post_date DESC
-      LIMIT %d, %d";
-    }
-
-    // タクソノミーで絞るSQL
-    // $sql_select = "SELECT ID, post_title FROM {$wpdb->posts} INNER JOIN {$wpdb->term_relationships} ON {$wpdb->posts}.ID = {$wpdb->term_relationships}.object_id INNER JOIN {$wpdb->term_taxonomy} ON {$wpdb->term_relationships}.term_taxonomy_id = {$wpdb->term_taxonomy}.term_id WHERE taxonomy LIKE 'locations' AND (post_status LIKE 'draft' OR post_status LIKE 'publish' OR post_status LIKE 'private') ORDER BY ID ASC";
-    $pre = $wpdb->prepare( $sql, $now_post_num, $next_get_post_num ); // 追記
-    $results = $wpdb->get_results($pre);
-
-    $error = 0;
-    if ( count( $results ) <= $get_post_num ) {
-        $error = 1;
-    }
-
-    $ht = '';
-    $count = 0;
-    $countpost = 0;
-    $flg = 0;
-    foreach( $results as $result ) {
-        ++$countpost;
-        if( ( $count % 4 ) === 0 ) {
-          echo '<div class="row">';
-          $flg = 1;
-        }
-        ++$count;
-        get_template_part( 'post_list' ); //投稿一覧読み込み
-        if( ( $count % 4 ) === 0 ) {
-          echo '</div>';
-          $flg = 0;
-        }
-        if( $countpost == $get_post_num ) break;
-    }
-    if( $flg === 1 ) {
-      echo '</div>';
-    }
-    $data = array(
-        'error' => $error,
-        'html' => $ht,
-        'conting' => $term
-    );
-    $data = json_encode($data);
-
-    // echo $data;
-}
 function ajax_loadpost() {
   $term = $_POST['term'];
   $paged = $_POST['paged'];
-  $queried_object = get_queried_object();
-  echo 'aaa'.$queried_object->slug;
   $args = array(
       'post_type' => 'post',
       'category_name' => $term,
@@ -239,45 +122,6 @@ function ajax_loadpost() {
 }
 add_action('wp_ajax_ajax_loadpost', 'ajax_loadpost');
 add_action('wp_ajax_nopriv_ajax_loadpost', 'ajax_loadpost');
-
-
-// 繧ｫ繝�ざ繝ｪ繝ｼ縺斐→縺ｫ險倅ｺ九ｒajax縺ｧ荳隕ｧ縺ｫ蜃ｺ縺�
-function ajax_posts_list(){
-  $slug = $_POST['slug'];
-  $args = array(
-    'tag' => $slug
-  );
-  $the_query = new WP_Query( $args );
-  if ( $the_query->have_posts() ) :
-  while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-  <dl class="clearfix">
-    <dt>
-      <a href="<?php the_permalink(); ?>">
-        <?php if ( has_post_thumbnail() ): // if it has thumbnail
-          the_post_thumbnail('thumbnail');
-        else: ?>
-          <img src="<?php echo get_template_directory_uri(); ?>/images/no-img.png" alt="no image" title="no image" />
-        <?php endif; ?>
-      </a>
-    </dt>
-    <dd>
-      <p class="post_title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></p>
-      <p class="post_date" itemprop="datePublished" datetime="<?php the_time('Y/m/d'); ?>"><?php the_time("'y.m"); ?></p>
-      <div class="post_info"><!-- post_list post_info -->
-      </div><!-- post_list post_info -->
-        <?php //post_get_categories(); ?>
-    </dd>
-</dl>
-<?php
-  endwhile;
-  else :
-    echo 'nothing';
-  endif;
-  wp_reset_query();
-  die();
-}
-add_action('wp_ajax_ajax_posts_list', 'ajax_posts_list');
-add_action('wp_ajax_nopriv_ajax_posts_list', 'ajax_posts_list');
 
 // wp_nav_menu()のクラス変更
 add_filter( 'nav_menu_css_class', 'nav_menu_add_class', 10, 2 );
