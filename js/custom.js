@@ -1,78 +1,79 @@
 jQuery(function($){
+    // dorawer
+    $(".drawer").drawer();
 
-  // dorawer
-  $(".drawer").drawer();
+    var content_top = $("#header").height() + 10;
+    $("#firstposts").css("top",content_top );
+    $("#content").css("top",content_top );
 
-  var content_top = $("#header").height() + 10;
-  $("#firstposts").css("top",content_top );
-  $("#content").css("top",content_top );
+    // slick slider top
+    $('.firstview').slick({
+        autoplay:true,
+        autoplaySpeed:5000,
+        fade: true,
+        arrows: false,
+        cssEase: 'linear'
+    });
 
-  // slick slider top
-  $('.firstview').slick({
-    autoplay:true,
-    autoplaySpeed:5000,
-    fade: true,
-    arrows: false,
-    cssEase: 'linear'
-  });
+    // parlx
+    var rellax = new Rellax(' .rellax ',{ center: true });
 
-  // parlx
-  var rellax = new Rellax(' .rellax ',{ center: true });
+    // Page top
+    $("#page-top").hide();
 
-  $("#page-top").hide();
-
-  var paged = 2;
-  var get_post_count = parseInt(jQuery('#post-count').text()); // もっと読むボタンを押した時に取得する数
-  var found_posts = parseInt($('#found-posts').text());
-  // 記事のローディング
-  $("#post-list-more a").on("click", function(event) {
-      event.preventDefault();
-      var post_count = parseInt($('#post-count').text());
-      $.ajax({
-          type: 'POST',
-          url: sitedata.url+'/wp-admin/admin-ajax.php',
-          data: {
-            'action': 'ajax_loadpost',
-            'term': sitedata.term,
-            'paged': paged
-          },
-          timeout: 10000,
-          success: function(data) {
-              post_count = post_count + get_post_count;
-              paged++;
-              data = data.slice(0, -1);
-              // console.log(data);
-              if (post_count >= found_posts) {
-                  $("#post-list-more a").remove();
-                  post_count = found_posts;
-              }
-              $('#post-count').text(post_count);
-              $("#post-list-more").before(data);
-          },
-          error: function(xhr, textStatus, error) {
-            error = 'サーバーの応答がありません。（処理エラー）';
-            $("#post-list-more").html(error);
-          }
-      });
-      return false;
-  });
+    // Work list Ajax 
+    var paged = 2;
+    var get_post_count = parseInt(jQuery('#post-count').text()); // もっと読むボタンを押した時に取得する数
+    var found_posts = parseInt($('#found-posts').text());
+    // 記事のローディング
+    $("#post-list-more a").on("click", function(event) {
+        event.preventDefault();
+        var post_count = parseInt($('#post-count').text());
+        $.ajax({
+            type: 'POST',
+            url: sitedata.url+'/wp-admin/admin-ajax.php',
+            data: {
+                'action': 'ajax_loadpost',
+                'term': sitedata.term,
+                'paged': paged
+            },
+            timeout: 10000,
+            success: function(data) {
+                post_count = post_count + get_post_count;
+                paged++;
+                data = data.slice(0, -1);
+                // console.log(data);
+                if (post_count >= found_posts) {
+                    $("#post-list-more a").remove();
+                    post_count = found_posts;
+                }
+                $('#post-count').text(post_count);
+                $("#post-list-more").before(data);
+            },
+            error: function(xhr, textStatus, error) {
+                error = 'サーバーの応答がありません。（処理エラー）';
+                $("#post-list-more").html(error);
+            }
+        });
+        return false;
+    });
 });
 
 $(function(){
-   // #で始まるアンカーをクリックした場合に処理
-   $('.smooth a[href^=#]').click(function() {
-      // スクロールの速度
-      var speed = 400; // ミリ秒
-      // アンカーの値取得
-      var href= $(this).attr("href");
-      // 移動先を取得
-      var target = $(href == "#" || href == "" ? 'html' : href);
-      // 移動先を数値で取得
-      var position = target.offset().top;
-      // スムーススクロール
-      $('body,html').animate({scrollTop:position}, speed, 'swing');
-      return false;
-   });
+    // #で始まるアンカーをクリックした場合に処理
+    $('.smooth a[href^=#]').click(function() {
+        // スクロールの速度
+        var speed = 400; // ミリ秒
+        // アンカーの値取得
+        var href= $(this).attr("href");
+        // 移動先を取得
+        var target = $(href == "#" || href == "" ? 'html' : href);
+        // 移動先を数値で取得
+        var position = target.offset().top;
+        // スムーススクロール
+        $('body,html').animate({scrollTop:position}, speed, 'swing');
+        return false;
+    });
 });
 
 var startPos = 0,winScrollTop = 0;
