@@ -35,10 +35,10 @@ box-shadow:0px 0px 23px 0px rgba(23, 23, 23, 0.14);
 /*----------  1.base setting  ----------*/
 @font-face {
     font-family: 'Material Icons';
-    src: url(https://fonts.gstatic.com/s/materialicons/v46/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/materialicons/v47/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
     font-style: normal;
     font-weight: 400;
-    font-display: swap;
 }
 
 body {
@@ -228,6 +228,22 @@ img {
 }
 .icon-arrow-right a:hover::after {
     left: 5px;
+}
+.icon-arrow-left a::before {
+    position: relative;
+    padding: 0 0.5em 0 0;
+    font-family: "Material Icons";
+    content: "chevron_left";
+    top: 0;
+    left: 0;
+    transition: all .2s linear;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+}
+.icon-arrow-left a:hover::before {
+    left: -5px;
 }
 .hover-zoom:hover img {
     transform: scale(1.2);
@@ -473,9 +489,9 @@ footer ul {
     margin: 0;
 }
 .breadcrumb li:after {
-    padding: 0 0.5em 0;
+    padding: 0 .5em 0;
     font-family: "Material Icons";
-    content: "keyboard_arrow_right";
+    content: "chevron_right";
 }
 .breadcrumb li:last-child:after {
     display: none;
@@ -909,22 +925,6 @@ max-width: 75%;
 .post-nav .column a {
     display: block;
     padding: 15px;
-}
-.post-nav .previous-post a::before {
-    position: relative;
-    padding: 0 0.5em 0 0;
-    font-family: "Material Icons";
-    content: "\f3cf";
-    top: 0;
-    left: 0;
-    transition: all .2s linear;
-    -webkit-transition: all .2s linear;
-    -moz-transition: all .2s linear;
-    -o-transition: all .2s linear;
-    -ms-transition: all .2s linear;
-}
-.post-nav .previous-post a:hover::before {
-    left: -5px;
 }
 
 /*----------  post_info > post-date + post_update ----------*/

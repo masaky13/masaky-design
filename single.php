@@ -100,7 +100,7 @@
                         $prev_post = get_previous_post();
                         if ( !empty( $prev_post ) ):
                             ?>
-                            <div class="column previous-post">
+                            <div class="column previous-post icon-arrow-left">
                                 <a href="<?php echo esc_url( get_permalink( $prev_post->ID ) ); ?>"><?php echo $prev_post->post_title; ?></a>
                             </div>
                             <?php
