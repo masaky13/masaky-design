@@ -122,7 +122,7 @@
             <div class="container"><!-- container -->
                 <h2>Other Works</h2>
             </div><!-- /#contentInner -->
-            <?php get_template_part( 'tmp-relate' ); ?>
+            <?php get_template_part( 'work_list' ); ?>
         </section><!-- /skills -->
     </main>
 </div><!-- /content -->

@@ -77,7 +77,7 @@
         <div class="container"><!-- container -->
             <h2>Works</h2>
         </div>
-        <?php get_template_part( 'tmp-relate' ); //投稿一覧読み込み ?>
+        <?php get_template_part( 'work_list' ); //投稿一覧読み込み ?>
         <p class="link-style-more icon-arrow-right"><a href="<?php home_url(); ?>/works">See more</a></p>
     </section><!-- /skills -->
 
