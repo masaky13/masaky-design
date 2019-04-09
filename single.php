@@ -117,14 +117,14 @@
             </div>
             <!--/post-->
         </div>
-        <!--関連記事-->
-        <section class="works" data-rellax-speed="-1"><!-- works -->
-            <div class="container"><!-- container -->
-                <h2>Other Works</h2>
-            </div><!-- /#contentInner -->
-            <?php get_template_part( 'work_list' ); ?>
-        </section><!-- /skills -->
     </main>
+    <!--関連記事-->
+    <section class="works" data-rellax-speed="-1"><!-- works -->
+        <div class="container"><!-- container -->
+            <h2>Other Works</h2>
+        </div><!-- /#contentInner -->
+        <?php get_template_part( 'work_list' ); ?>
+    </section><!-- /skills -->
 </div><!-- /content -->
 
 <!--/#content -->

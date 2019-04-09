@@ -5,10 +5,7 @@
 ?>
 <?php
 $postcount = 8; //表示したい記事数
-if( is_home() ) {
-    // トップの場合
-    $args = array( 'posts_per_page' => $postcount );
-} elseif( is_single() ) {
+if( is_single() ) {
     // 記事ページの場合
     $categories = get_the_category( $post->ID );
     $category_ids = array();
@@ -36,6 +33,9 @@ if( is_home() ) {
         ),
         'orderby' => 'rand', //ランダム表示
     );
+} else {
+    // それ以外のページ
+    $args = array( 'posts_per_page' => $postcount );
 }
 $the_query = new WP_Query( $args );
 $count = 0;
