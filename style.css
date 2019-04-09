@@ -40,6 +40,20 @@ box-shadow:0px 0px 23px 0px rgba(23, 23, 23, 0.14);
     font-style: normal;
     font-weight: 400;
 }
+@keyframes fadeup {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes spin {
+  	0% {transform: rotate(360deg);}
+  	100% {transform: rotate(0deg);}
+}
 
 body {
     background-color: rgba(219, 228, 232, 0);
@@ -618,7 +632,6 @@ section .title {
 
 /*----------  service  ----------*/
 .service {
-    background-size: cover;
     background-attachment: fixed;
     background-position: center center;
     text-align: center;
@@ -688,7 +701,6 @@ content: "\f3d1";
 /*----------  contact  ----------*/
 .contact {
     text-align: center;
-    background-size: cover;
     background-attachment: fixed;
     background-position: center center;
 }
@@ -713,7 +725,6 @@ content: "\f3d1";
 .topview {
     padding: 150px 0 60px;
     background-image: url("./images/page-top.jpg");
-    background-size: cover;
     background-attachment: fixed;
     background-position: center center;
 }
@@ -852,6 +863,8 @@ content: "\f3d1";
 }
 .post-list .column {
     position: relative;
+    animation-duration: 1.5s;
+    animation-name: fadeup;
 }
 .post-list .post-image {
     position: relative;
@@ -889,6 +902,9 @@ content: "\f3d1";
 #post-list-more a{
     display: inline-block;
     padding: 15px;
+}
+.spinanime {
+    animation: spin 2s linear infinite;
 }
 /*----------  archive  ----------*/
 

@@ -21,14 +21,18 @@ jQuery(function($){
     // Page top
     $("#page-top").hide();
 
-    // Work list Ajax 
+    // Work list Ajax
     var paged = 2;
-    var get_post_count = parseInt(jQuery('#post-count').text()); // もっと読むボタンを押した時に取得する数
+    var get_post_count = parseInt($('#post-count').text()); // もっと読むボタンを押した時に取得する数
     var found_posts = parseInt($('#found-posts').text());
     // 記事のローディング
     $("#post-list-more a").on("click", function(event) {
         event.preventDefault();
+        var term = $('h1').text();
         var post_count = parseInt($('#post-count').text());
+        thiselm = $(this);
+        thiselm_html = thiselm.html();
+        $(this).html('<i class="material-icons spinanime">sync</i>');
         $.ajax({
             type: 'POST',
             url: sitedata.url+'/wp-admin/admin-ajax.php',
@@ -39,16 +43,16 @@ jQuery(function($){
             },
             timeout: 10000,
             success: function(data) {
-                post_count = post_count + get_post_count;
-                paged++;
-                data = data.slice(0, -1);
-                // console.log(data);
-                if (post_count >= found_posts) {
-                    $("#post-list-more a").remove();
-                    post_count = found_posts;
-                }
-                $('#post-count').text(post_count);
-                $("#post-list-more").before(data);
+              post_count = post_count + get_post_count;
+              paged++;
+              data = data.slice(0, -1);
+              if (post_count >= found_posts) {
+                  thiselm.remove();
+                  post_count = found_posts;
+              }
+              $('#post-count').text(post_count);
+              $("#post-list-more").before(data);
+              thiselm.html(thiselm_html);
             },
             error: function(xhr, textStatus, error) {
                 error = 'サーバーの応答がありません。（処理エラー）';
