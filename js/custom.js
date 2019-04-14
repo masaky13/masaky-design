@@ -1,4 +1,4 @@
-jQuery(function($){
+$(function($){
     // dorawer
     $(".drawer").drawer();
 
@@ -8,8 +8,8 @@ jQuery(function($){
 
     // slick slider top
     $('.firstview').slick({
-        autoplay:true,
-        autoplaySpeed:5000,
+        autoplay: true,
+        autoplaySpeed: 5000,
         fade: true,
         arrows: false,
         cssEase: 'linear'
@@ -26,8 +26,7 @@ jQuery(function($){
     var get_post_count = parseInt($('#post-count').text()); // もっと読むボタンを押した時に取得する数
     var found_posts = parseInt($('#found-posts').text());
     // 記事のローディング
-    $("#post-list-more a").on("click", function(event) {
-        event.preventDefault();
+    $("#post-list-more").on("click", function() {
         var term = $('h1').text();
         var post_count = parseInt($('#post-count').text());
         thiselm = $(this);
@@ -51,7 +50,7 @@ jQuery(function($){
                   post_count = found_posts;
               }
               $('#post-count').text(post_count);
-              $("#post-list-more").before(data);
+              thiselm.before(data);
               thiselm.html(thiselm_html);
             },
             error: function(xhr, textStatus, error) {
@@ -65,7 +64,7 @@ jQuery(function($){
 
 $(function(){
     // #で始まるアンカーをクリックした場合に処理
-    $('.smooth a[href^=#]').click(function() {
+    $('a[href^=#]').click(function() {
         // スクロールの速度
         var speed = 400; // ミリ秒
         // アンカーの値取得

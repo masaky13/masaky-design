@@ -109,12 +109,8 @@ img {
 .clearfix {
     clear: both;
 }
-.lazyload{
-    opacity: 0;
-}
 .lazyloaded{
-    opacity: 1;
-    transition: all .5s;
+    animation: fade .3s linear;
 }
 #wrapper .none-pc {
     display: none;
@@ -881,12 +877,12 @@ content: "\f3d1";
     top: -10px;
     opacity: 0;
 }
-#post-list-more {
+#post-list-more,
+.post-list-nav {
     text-align: center;
 }
-#post-list-more a{
-    display: inline-block;
-    padding: 15px;
+#post-list-more {
+    cursor : pointer;
 }
 .spinanime {
     animation: spin 2s linear infinite;

@@ -42,8 +42,10 @@
             echo '</div>';
         }
         ?>
-        <p id="post-list-more"><a href="#">More</a><span id="post-count">
-            <?php echo $wp_query->post_count; ?></span>/<span id="found-posts"><?php echo $wp_query->found_posts; ?></span>
+        <p id="post-list-more">More</p>
+        <p class="post-list-nav">
+            <span id="post-count"><?php echo $wp_query->post_count; ?></span> /
+            <span id="found-posts"><?php echo $wp_query->found_posts; ?></span>
         </p>
     </div>
     <?php // get_template_part( 'tmp-pagenavi' ); //ページナビ読み込み ?>

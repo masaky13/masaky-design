@@ -60,8 +60,10 @@ get_header();
                     echo '</div>';
                 }
                 ?>
-                <p id="post-list-more"><a href="#">More</a><span id="post-count">
-                    <?php echo $the_query->post_count; ?></span>/<span id="found-posts"><?php echo $the_query->found_posts; ?></span>
+                <p id="post-list-more">More</p>
+                <p class="post-list-nav">
+                    <span id="post-count"><?php echo $the_query->post_count; ?></span> /
+                    <span id="found-posts"><?php echo $the_query->found_posts; ?></span>
                 </p>
             </div>
         </article>
