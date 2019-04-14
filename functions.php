@@ -1,7 +1,6 @@
 <?php
 // PHP Files
 require_once('functions/init.php');
-require_once('functions/or_functions.php');
 
 /* JavaScript
 * ---------------------------------------- */
