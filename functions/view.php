@@ -68,6 +68,22 @@ if( !is_admin() ) {
     }
 }
 
+function head_meta_index() {
+    if( is_home() && !is_paged() ) {
+        $content = 'index,follow';
+    } elseif( is_search() or is_404() ) {
+        $content = 'noindex,follow';
+    } elseif( !is_category() && is_archive() ) {
+        $content = 'noindex,follow';
+    } elseif( is_paged() ) {
+        $content = 'noindex,follow';
+    }
+    if( !empty( $content ) ) {
+        $meta = '<meta name="robots" content="'. $content .'">';
+    }
+    return $meta;
+}
+
 // パンくず
 function get_breadcrumb() {
     global $post;

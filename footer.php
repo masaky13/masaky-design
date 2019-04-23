@@ -19,8 +19,6 @@
         <small class="copy">Copyright&copy;<?php bloginfo( 'name' ); ?>,<?php echo date( 'Y' ); ?>All Rights Reserved.</small>
     </div>
 </footer>
-</div><!-- /#wrapperin -->
-</div><!-- /#wrapper -->
 <!-- ページトップへ戻る -->
 <div id="page-top"><a href="#wrapper"></a></div>
 <!-- ページトップへ戻る　終わり -->
