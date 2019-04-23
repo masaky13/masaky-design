@@ -1,7 +1,7 @@
 /*
 Theme Name: msk-dg
-Template: stinger8
-Version: 20161115
+Template:
+Version: 20190422
 */
 
 /* ------------------------------
@@ -57,7 +57,7 @@ h1 {
     margin: 0;
 }
 h2 {
-    margin: 0 0 .4em;
+    margin: 0 0 .9em;
     padding: 0;
     background: none;
     border: none;
