@@ -33,13 +33,13 @@ function register_blog_cat_custom_post() {
 }
 
 // カスタムメニュー
-// add_action( 'init', 'my_custom_menus' );
-// function my_custom_menus() {
-//     register_nav_menus(
-//         array(
-//             'primary-menu' => __( 'ヘッダー用メニュー', 'default' ),
-//             'secondary-menu' => __( 'フッター用メニュー', 'default' ),
-//             'smartphone-menu' => __( 'スマートフォン用メニュー', 'default' )
-//         )
-//     );
-// }
+add_action( 'init', 'my_custom_menus' );
+function my_custom_menus() {
+    register_nav_menus(
+        array(
+            'primary-menu' => __( 'ヘッダー用メニュー', 'default' ),
+            'secondary-menu' => __( 'フッター用メニュー', 'default' ),
+            'smartphone-menu' => __( 'スマートフォン用メニュー', 'default' )
+        )
+    );
+}
