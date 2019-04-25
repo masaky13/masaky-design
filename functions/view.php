@@ -285,3 +285,40 @@ function or_get_terms( $taxonomy ) {
     }
     return $ht;
 }
+
+// About view sections
+function view_profile() {
+    global $post;
+    // var_dump(  );
+    $profile_name = get_post_meta( $post->ID, 'profile_name', true );
+    $profile_summary = get_post_meta( $post->ID, 'profile_summary', true );
+    $profile_hobbies = get_post_meta( $post->ID, 'profile_hobbies', true );
+    $profile_image = get_post_meta( $post->ID, 'profile_image', true );
+    if( $profile_name !== '' || $profile_summary !== '' ) {
+        $ht = '<section class="profile"><div class="container none-edge"><div class="row">';
+        // image
+        if( !empty( $profile_image ) ) {
+            $ht .= '<div class="column profile-image c-cover"><img class="objectfit lazyload" data-src="'. $profile_image .'" alt="profile"></div>';
+        }
+        // title
+        $ht .= '<div class="column"><div class="title">';
+        if( $profile_name !== '' ) {
+            $ht .= '<h2>'. $profile_name .'</h2>';
+        }
+        if( $profile_summary !== '' ) {
+            $ht .= '<p>'. $profile_summary .'</p>';
+            $ht .= '<div class="profile-info list-style-slash"><p><span>千葉県出身</span><span>O型</span><span>ふたご座</span></p></div>';
+        }
+        if( $profile_hobbies !== '' ) {
+            $ht .= '<p>Hobbies</p>';
+            $ht .= '<div class="profile-info list-style-slash"><p>';
+            foreach( $profile_hobbies as $hobby ) {
+                $ht .= '<span>'. $hobby .'</span>';
+            }
+            $ht .= '</p></div>';
+        }
+        $ht .= '</div></div>';
+        $ht .= '</div></div></section>';
+    }
+    return $ht;
+}

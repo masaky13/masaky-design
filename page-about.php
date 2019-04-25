@@ -17,28 +17,7 @@ Template Name: ABOUT
                 </div>
             </section><!-- /topview -->
 
-            <section class="profile"><!-- profile -->
-                <div class="container none-edge">
-                    <div class="row">
-                        <div class="column profile-image c-cover">
-                            <img class="objectfit lazyload" data-src="<?php echo get_stylesheet_directory_uri(); ?>/images/about-profileimage.jpg" alt="アバウト画像">
-                        </div>
-                        <div class="column">
-                            <div class="title">
-                                <h2>Masaki Takeuchi</h2>
-                                <p>HTML/CSSコーダー・グラフィックデザイナーとして活動しております。web制作ではWordPressが得意でテーマの制作や入稿追加機能、データベースの管理や一括置換、API連携など、フロントエンドからバックエンドまで幅広く改修・開発ができます。また、web制作プロジェクトのディレクターの経験もあり、チームでの業務も対応できます。落語のイベントの総合マネジャーの経験もあり、様々な分野で挑戦し活躍したいと考えております。</p>
-                                <div class="profile-info list-style-slash">
-                                    <p><span>千葉県出身</span><span>O型</span><span>ふたご座</span></p>
-                                    <p>Hobbies<br>
-                                        <span>旅行</span><span>自然</span><span>トレーニング</span><span>ハイキング</span><span>お酒</span><span>アウトドア</span><span>スノーボード</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section><!-- /profile -->
-
+            <?php echo view_profile(); ?>
             <section class="skills"><!-- skills -->
                 <div class="container">
                     <h2>Skills</h2>
