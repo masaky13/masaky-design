@@ -322,3 +322,39 @@ function view_profile() {
     }
     return $ht;
 }
+
+function view_skills() {
+    global $post;
+    $names = get_post_meta( $post->ID, 'skill_names', true );
+    $parcents = get_post_meta( $post->ID, 'skill_parcents', true );
+    $summaries = get_post_meta( $post->ID, 'skill_summaries', true );
+    $careeries = get_post_meta( $post->ID, 'skill_careeries', true );
+
+    if( !empty( $names ) || !empty( $parcents ) || !empty( $summaries ) ) {
+        $ht = '<section class="skills"><div class="container"><h2>Skills</h2>';
+        foreach( $names as $key => $name ) {
+            $ht .= '<div class="row skill">';
+            $ht .= '<div class="column column-20">';
+            $ht .= '<p>'. $name .'</p>';
+            $ht .= '</div>';
+            $ht .= '<div class="column column-80">';
+            if( $parcents[$key] !== '' ) {
+                $ht .= '<div class="row"><div class="column column-'. $parcents[$key] .' skill-percent"><p>'. $parcents[$key] .'</p></div></div>';
+            }
+            if( $careeries[$key] !== '' || $summaries[$key] !== '' ) {
+                $ht .= '<div class="skill-description">';
+                if( $careeries[$key] !== '' ) {
+                    $ht .= '<p>経験年数：'. $careeries[$key] .'年</p>';
+                }
+                if( $summaries[$key] !== '' ) {
+                    $ht .= '<p>'. $summaries[$key] .'</p>';
+                }
+                $ht .= '</div>';
+            }
+            $ht .= '</div>';
+            $ht .= '</div>';
+        }
+        $ht .= '</div></section>';
+    }
+    return $ht;
+}

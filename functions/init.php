@@ -115,27 +115,32 @@ function save_profile_fields( $post_id ) {
         delete_post_meta( $post_id, 'profile_image' );
     }
     // Skill
-    if( !empty( $_POST['skill_names'] ) || $_POST['skill_parcents'] || $_POST['skill_summaries'] ) {
+    if( !empty( $_POST['skill_names'] ) || !empty( $_POST['skill_parcents'] ) || !empty( $_POST['skill_summaries'] ) || !empty( $_POST['skill_careeries'] ) ) {
         $names = $_POST['skill_names'];
         $parcents = $_POST['skill_parcents'];
         $summaries = $_POST['skill_summaries'];
+        $careeries = $_POST['skill_careeries'];
         foreach( $names as $key => $value ) {
-            if( empty( $value ) && empty( $parcents[$key] ) && empty( $summaries[$key] ) ) {
+            if( empty( $value ) && empty( $parcents[$key] ) && empty( $summaries[$key] ) && empty( $careeries[$key] ) ) {
                 unset( $names[$key] );
                 unset( $parcents[$key] );
                 unset( $summaries[$key] );
+                unset( $careeries[$key] );
             }
         }
         $names = array_values( $names );
         $parcents = array_values( $parcents );
         $summaries = array_values( $summaries );
+        $careeries = array_values( $careeries );
         update_post_meta( $post_id, 'skill_names', $names );
         update_post_meta( $post_id, 'skill_parcents', $parcents );
         update_post_meta( $post_id, 'skill_summaries', $summaries );
+        update_post_meta( $post_id, 'skill_careeries', $careeries );
     } else {
         delete_post_meta( $post_id, 'skill_names' );
         delete_post_meta( $post_id, 'skill_parcents' );
         delete_post_meta( $post_id, 'skill_summaries' );
+        delete_post_meta( $post_id, 'skill_careeries' );
     }
 
     if( isset($_POST['my_meta_nonce_wpnonce']) && !wp_verify_nonce( $_POST['my_meta_nonce'], 'image-meta') ) {
@@ -162,20 +167,19 @@ function insert_skills_fields() {
     $skill_names = get_post_meta( $post->ID, 'skill_names', true );
     $skill_parcents = get_post_meta( $post->ID, 'skill_parcents', true );
     $skill_summaries = get_post_meta( $post->ID, 'skill_summaries', true );
+    $skill_careeries = get_post_meta( $post->ID, 'skill_careeries', true );
     echo '項目　％　備考<br>';
     if( empty( $skill_names ) ) $skill_names = array('');
     if( empty( $skill_parcents ) ) $skill_parcents = array('');
     if( empty( $skill_summaries ) ) $skill_summaries = array('');
-
-    var_dump($skill_names);
-    var_dump($skill_parcents);
-    var_dump($skill_summaries);
+    if( empty( $skill_careeries ) ) $skill_careeries = array('');
 
     foreach( $skill_names as $index => $value ) {
         echo '<div class="skill_item">';
         echo '<input type="hidden" name="skill_index['. $index .']" value="'. $index .'" />';
         echo '項目：<input type="text" name="skill_names['. $index .']" value="'. $value .'" size="50" />';
-        echo '数値：<input type="text" name="skill_parcents['. $index .']" value="'. $skill_parcents[$index] . '" size="10" /><br>';
+        echo '数値：<input type="text" name="skill_parcents['. $index .']" value="'. $skill_parcents[$index] . '" size="10" />';
+        echo '年数：<input type="text" name="skill_careeries['. $index .']" value="'. $skill_careeries[$index] . '" size="10" /><br>';
         echo '概要：<textarea class="skill_summaries" name="skill_summaries['. $index .']" cols="100" rows="5">'. $skill_summaries[$index] .'</textarea>';
         echo '<input class="skill_delete_button" type="button" value="項目削除" /><br />';
         echo '</div>';
