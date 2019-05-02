@@ -86,10 +86,6 @@ a {
     color: #888;
     text-decoration: none;
     transition: all .2s linear;
-    -webkit-transition: all .2s linear;
-    -moz-transition: all .2s linear;
-    -o-transition: all .2s linear;
-    -ms-transition: all .2s linear;
 }
 a:hover {
     color: #aaa;
@@ -99,11 +95,8 @@ a:hover img {
     opacity: inherit;
 }
 img {
+    height: auto;
     transition: all .2s linear;
-    -webkit-transition: all .2s linear;
-    -moz-transition: all .2s linear;
-    -o-transition: all .2s linear;
-    -ms-transition: all .2s linear;
 }
 .clearfix {
     clear: both;
@@ -111,14 +104,14 @@ img {
 .lazyloaded{
     animation: fade .3s linear;
 }
-#wrapper .none-pc {
+.none-pc {
     display: none;
 }
 @media only screen and (max-width: 960px) {
-    #wrapper .none-sp {
+    .none-sp {
         display: none;
     }
-    #wrapper .none-pc {
+    .none-pc {
         display: block;
     }
 }
@@ -145,10 +138,6 @@ img {
     background-color: rgba(60,60,60,.4);
     z-index: 20;
     transition: all .2s linear;
-    -webkit-transition: all .2s linear;
-    -moz-transition: all .2s linear;
-    -o-transition: all .2s linear;
-    -ms-transition: all .2s linear;
 }
 .list-style-slash span,
 .list-style-slash a {
@@ -181,13 +170,9 @@ img {
 .link-style-boxshadow a {
     display: block;
     box-shadow: 0px 0px 3px 1px rgba(20, 20, 20, .2);
-    -moz-box-shadow: 0px 0px 3px 1px rgba(20, 20, 20, .2);
-    -webkit-box-shadow: 0px 0px 3px 1px rgba(20, 20, 20, .2);
 }
 .link-style-boxshadow:hover a {
     box-shadow: 0px 0px 10px 2px rgba(20, 20, 20, .4);
-    -moz-box-shadow: 0px 0px 10px 2px rgba(20, 20, 20, .4);
-    -webkit-box-shadow: 0px 0px 10px 2px rgba(20, 20, 20, .4);
 }
 .link-style-trmimage a {
     overflow: hidden;
@@ -224,10 +209,6 @@ img {
     top: 0;
     left: 0;
     transition: all .2s linear;
-    -webkit-transition: all .2s linear;
-    -moz-transition: all .2s linear;
-    -o-transition: all .2s linear;
-    -ms-transition: all .2s linear;
 }
 .icon-arrow-right a:hover::after {
     left: 5px;
@@ -240,10 +221,6 @@ img {
     top: 0;
     left: 0;
     transition: all .2s linear;
-    -webkit-transition: all .2s linear;
-    -moz-transition: all .2s linear;
-    -o-transition: all .2s linear;
-    -ms-transition: all .2s linear;
 }
 .icon-arrow-left a:hover::before {
     left: -5px;
@@ -334,8 +311,6 @@ img {
     transition: .5s;
     z-index: 1000;
     box-shadow: 0px 0px 2px 1px rgba(60, 60, 60, .4);
-    -moz-box-shadow: 0px 0px 2px 1px rgba(60, 60, 60, .4);
-    -webkit-box-shadow: 0px 0px 2px 1px rgba(60, 60, 60, .4);
     background: rgba(20, 20, 20, .6);
 }
 #header.hide {
@@ -506,8 +481,6 @@ footer ul {
     line-height: .8em;
     color: #555;
     box-shadow: 0px 0px 2px 1px rgba(60, 60, 60, .4);
-    -moz-box-shadow: 0px 0px 2px 1px rgba(60, 60, 60, .4);
-    -webkit-box-shadow: 0px 0px 2px 1px rgba(60, 60, 60, .4);
     opacity: 1;
 }
 #page-top a::after {
@@ -568,10 +541,6 @@ section .title {
     top: 0;
     left: 0;
     transition: all .2s linear;
-    -webkit-transition: all .2s linear;
-    -moz-transition: all .2s linear;
-    -o-transition: all .2s linear;
-    -ms-transition: all .2s linear;
 }
 .firstview_con h2 a:hover {
     color: inherit;
@@ -604,8 +573,6 @@ section .title {
     padding: 0;
     background-color: #c3c3c3;
     box-shadow: 0px 0px 40px 2px rgba(20, 20, 20, .6);
-    -moz-box-shadow: 0px 0px 40px 2px rgba(20, 20, 20, .6);
-    -webkit-box-shadow: 0px 0px 40px 2px rgba(20, 20, 20, .6);
 }
 
 /*----------  about  ----------*/
@@ -656,8 +623,6 @@ content: "\f3d1";
     margin-left: 0;
     width: auto;
     box-shadow: 0px 0px 40px 2px rgba(20, 20, 20, .6);
-    -moz-box-shadow: 0px 0px 40px 2px rgba(20, 20, 20, .6);
-    -webkit-box-shadow: 0px 0px 40px 2px rgba(20, 20, 20, .6);
 }
 .works .row .column {
     padding: 0;
@@ -784,16 +749,10 @@ content: "\f3d1";
 .career .row {
     padding: 25px 10px;
     transition: all .2s linear;
-    -webkit-transition: all .2s linear;
-    -moz-transition: all .2s linear;
-    -o-transition: all .2s linear;
-    -ms-transition: all .2s linear;
 }
 
 .career .row:hover {
     box-shadow: 0px 0px 10px 2px rgba(20, 20, 20, .4);
-    -moz-box-shadow: 0px 0px 10px 2px rgba(20, 20, 20, .4);
-    -webkit-box-shadow: 0px 0px 10px 2px rgba(20, 20, 20, .4);
     background: rgba(120, 120, 120, .4);
 }
 

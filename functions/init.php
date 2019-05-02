@@ -9,6 +9,7 @@ remove_action( 'wp_head', 'wlwmanifest_link' ); // Windows Live Writer
 remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head' ); // 前後の記事 link URL
 remove_action( 'wp_head', 'feed_links', 2 );
 remove_action( 'wp_head', 'feed_links_extra', 3 );
+add_theme_support('post-thumbnails');
 
 add_action('init','remove_parent_theme_actions');
 function remove_parent_theme_actions() {
@@ -56,14 +57,34 @@ function add_css() {
     echo "\n" . '<link rel="stylesheet" id="thickbox-css"  href="' . get_bloginfo('url') . '/wp-includes/js/thickbox/thickbox.css" type="text/css" media="all" />'; // -- (2)
 }
 
-// アバウト　カスタムフィールド登録
+// 記事　カスタムフィールド登録
+add_action('admin_menu', 'add_post_fields');
+function add_post_fields() {
+    //add_meta_box(表示される入力ボックスのHTMLのID, ラベル, 表示する内容を作成する関数名, 投稿タイプ, 表示方法)
+    add_meta_box( 'post_summary', 'Summary', 'insert_summary_fields', 'post', 'normal');
+}
+// カスタムフィールドの入力エリア
+function insert_summary_fields() {
+    global $post;
+    //下記に管理画面に表示される入力エリア
+    echo '概要：<input type="text" name="post_summary" value="'. get_post_meta( $post->ID, 'summary', true ). '" size="100" /><br>';
+}
+add_action('save_post', 'save_post_fields');
+function save_post_fields( $post_id ) {
+    if( !empty( $_POST['post_summary'] ) ) {
+        update_post_meta( $post_id, 'summary', $_POST['post_summary'] );
+    } else {
+        delete_post_meta( $post_id, 'summary' );
+    }
+}
+
+// 固定ページ　カスタムフィールド登録
 add_action('admin_menu', 'add_profile_fields');
 function add_profile_fields() {
     //add_meta_box(表示される入力ボックスのHTMLのID, ラベル, 表示する内容を作成する関数名, 投稿タイプ, 表示方法)
-    add_meta_box( 'profile_setting', 'プロフィール', 'insert_profile_fields', 'page', 'normal');
+    add_meta_box( 'profile_setting', 'Profile', 'insert_profile_fields', 'page', 'normal');
     add_meta_box( 'profile_skills', 'Skills', 'insert_skills_fields', 'page', 'normal');
 }
-
 // カスタムフィールドの入力エリア
 function insert_profile_fields() {
     global $post;
@@ -156,9 +177,7 @@ function save_profile_fields( $post_id ) {
     } else {
         return $post_id;
     }
-
 }
-
 
 // カスタムフィールドの入力エリア
 function insert_skills_fields() {

@@ -82,7 +82,10 @@ $(function(){
 var startPos = 0,winScrollTop = 0;
 $(window).on('scroll',function(){
     winScrollTop = $(this).scrollTop();
-    if (winScrollTop >= startPos) {
+    console.log( winScrollTop );
+    if( winScrollTop == 0) {
+        $('#header').removeClass('hide');
+    } else if (winScrollTop <= startPos && winScrollTop >= 0) {
         $('#header').addClass('hide');
     } else {
         $('#header').removeClass('hide');
