@@ -2,7 +2,7 @@
 
 <div class="content"><!-- content -->
     <article>
-        <?php if (have_posts()) : while (have_posts()) :
+        <?php if( have_posts() ) : while( have_posts() ) :
             the_post(); ?>
             <section class="topview c-cover"><!-- topview -->
                 <div class="inner">
@@ -10,17 +10,16 @@
                         <h1><?php the_title(); ?></h1>
                     </div>
                 </div>
-            </section><!-- /topview -->
+            </section>
 
             <main>
                 <div class="container">
-                    <?php the_content(); //本文 ?>
+                    <?php the_content(); ?>
                 </div>
-            <?php endwhile; else: ?>
-                <p>記事がありません</p>
-            <?php endif; ?>
-            <!--ループ終了 -->
-        </main>
+            </main>
+        <?php endwhile; else: ?>
+            <p>記事がありません</p>
+        <?php endif; ?>
     </article>
-</div><!-- /#content -->
+</div><!-- /content -->
 <?php get_footer(); ?>

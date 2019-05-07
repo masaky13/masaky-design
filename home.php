@@ -69,7 +69,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <p class="notices"><a href="<?php home_url(); ?>/contact">詳細スキル・経歴はこちら</a></p> -->
         </div><!-- /#contentInner -->
     </section><!-- /service -->
 
