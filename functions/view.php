@@ -257,6 +257,8 @@ function or_get_category( $getparent = true ) {
     global $excludes;
     $categories = get_the_category();
     if( !empty( $categories ) ) {
+        $ht = '';
+        $childclass = '';
         foreach( $categories as $category ) {
             if( !in_array( $category->cat_ID, $excludes ) ) {
                 if( $category->parent != 0 ) {

@@ -45,13 +45,13 @@ $(function($){
               post_count = post_count + get_post_count;
               paged++;
               data = data.slice(0, -1);
+              thiselm.before(data);
+              thiselm.html(thiselm_html);
               if (post_count >= found_posts) {
                   thiselm.remove();
                   post_count = found_posts;
               }
               $('#post-count').text(post_count);
-              thiselm.before(data);
-              thiselm.html(thiselm_html);
             },
             error: function(xhr, textStatus, error) {
                 error = 'サーバーの応答がありません。（処理エラー）';
