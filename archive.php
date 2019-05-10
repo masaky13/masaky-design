@@ -10,9 +10,7 @@
         </div>
     </section><!-- /topview -->
     <main>
-        <div class="works-introduce container">
-            <?php // echo works_introduce(); ?>
-        </div>
+        <?php echo works_introduce(); ?>
         <div class="archive-menu container">
             <h3>Produced</h3>
             <div class="row">

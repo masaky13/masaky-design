@@ -797,6 +797,16 @@ content: "\f3d1";
 .archive-menu {
     margin: 0 auto 30px;
 }
+.works-fee,
+.archive-menu {
+    margin: 0 auto 50px;
+}
+.works-fee-table {
+    margin: 50px auto;
+}
+/* .prices {
+    text-align: left;
+} */
 .post-list .row {
     padding: 15px 0;
 }

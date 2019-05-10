@@ -219,6 +219,64 @@ function get_archve_title() {
     return $title;
 }
 
+// 記事一覧　works_introduce
+// 固定ページのタイトルに、categoryのslugを入力して入稿すると固定ページの内容を表示させる処理
+function works_introduce() {
+    $ht = '';
+    $taxonomy = 'category';
+    $queried_object = get_queried_object();
+    if( $queried_object->parent !== 0 ) {
+        // 子categoryの場合の処理
+        $parentslug = get_category( $queried_object->parent )->slug;
+        $page = get_page_by_title( $parentslug );
+    } elseif( $queried_object->parent === 0 ) {
+        // 親categoryの場合の処理
+        $page = get_page_by_title( $queried_object->slug );
+    } else {
+        // それ以外の処理
+        $page = '';
+    }
+    if( !empty( $page ) ) {
+        $ht .= '<div class="works-fee container">';
+        $ht .= wpautop( $page->post_content );
+
+        $names = get_post_meta( $page->ID, 'fee_names', true );
+        $prices = get_post_meta( $page->ID, 'fee_prices', true );
+        $options = get_post_meta( $page->ID, 'fee_options', true );
+
+        if( !empty( $names ) || !empty( $prices ) ) {
+            $ht .= '<div class="works-fee-table container">';
+            foreach( $names as $key => $name ) {
+                $ht .= '<div class="row">';
+                $ht .=   '<div class="column column-40">';
+                $ht .=     '<p>'. $name .'</p>';
+                $ht .=   '</div>';
+                $ht .=   '<div class="column column-60 prices">';
+                if( $options[$key]['req'] === 'is-on' ) {
+                    $ht .= '<p>要お問合せ</p>';
+                } elseif( !empty( $prices[$key] ) ) {
+                    $nami = '';
+                    if( $options[$key]['nami'] === 'is-on' ) {
+                        $nami = '～';
+                    }
+                    if( $options[$key]['tax'] === 'is-on' ) {
+                        $prices[$key] = preg_replace( '/[^0-9]/' ,'' , $prices[$key] );
+                        $prices[$key] = $prices[$key] * 1.08;
+                        $prices[$key] = number_format( $prices[$key] );
+                    }
+                    $ht .= '<p>￥'. $prices[$key] . $nami .'</p>';
+                }
+                $ht .=   '</div>';
+                $ht .= '</div>';
+            }
+            $ht .= '</div>';
+        }
+        $ht .= '<p>御見積もりのご依頼、ご相談は<a href="'. home_url( 'contact' ) .'">お問合せフォーム</a>よりご連絡くださいませ。</p>';
+        $ht .= '</div>';
+    }
+    return $ht;
+}
+
 // 記事一覧　カテゴリメニュー
 function term_child_directly( $taxonomy ) {
     global $excludes;

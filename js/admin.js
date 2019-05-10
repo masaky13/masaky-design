@@ -52,9 +52,28 @@ jQuery(function($) {
         $(this).before(clone);
     });
 
-    $('.skill_delete_button').click(function(e) {
+    $('.delete_button').click(function(e) {
         e.preventDefault();
         $(this).parent().remove();
+    });
+
+    $('.fee_item .tax').each(function() {
+        if( $(this).prop('checked') === true ) {
+            price = $(this).siblings('.price').val();
+            price = price.replace(/[^0-9]/g, '');
+            $tatal = price * 1.08;
+            $(this).siblings('.price').after('<span class="tatal">'+Math.floor($tatal)+'</span>');
+        }
+    });
+    $('.fee_item .tax').change(function() {
+        if( $(this).prop('checked') === true ) {
+            price = $(this).siblings('.price').val();
+            price = price.replace(/[^0-9]/g, '');
+            $tatal = price * 1.08;
+            $(this).siblings('.price').after('<span class="tatal">'+Math.floor($tatal)+'</span>');
+        } else {
+            $(this).siblings('.tatal').remove();
+        }
     });
 });
 //   function button_disabled() {
