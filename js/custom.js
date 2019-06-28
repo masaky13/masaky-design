@@ -86,9 +86,9 @@ $(window).on('scroll',function(){
     if( winScrollTop == 0) {
         $('#header').removeClass('hide');
     } else if (winScrollTop <= startPos && winScrollTop >= 0) {
-        $('#header').addClass('hide');
-    } else {
         $('#header').removeClass('hide');
+    } else {
+        $('#header').addClass('hide');
     }
     startPos = winScrollTop;
 });

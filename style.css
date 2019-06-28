@@ -91,7 +91,6 @@ a:hover {
     color: #aaa;
 }
 a:hover img {
-    -moz-opacity: inherit;
     opacity: inherit;
 }
 img {
@@ -296,7 +295,7 @@ img {
 }
 @media only screen and (max-width: 960px) {
     .inner {
-        padding: 10px;
+        padding: 0 10px;
         width: 100%;
         box-sizing: border-box;
     }
@@ -360,11 +359,13 @@ nav li a:hover {
     animation: fade .3s linear;
 }
 .drawer-hamburger {
-    width: 2.5rem
+    padding: 5px 10px;
+    width: 2.5rem;
 }
-.drawer-hamburger {
-    margin-bottom: 0;
+.drawer-hamburger-icon, .drawer-hamburger-icon:after, .drawer-hamburger-icon:before {
+    background-color: #ccc;
 }
+
 .sp-nav {
     text-align: center;
 }
@@ -684,6 +685,13 @@ content: "\f3d1";
     font-size: 1.8em;
     margin: 0 0 0 15px;
 }
+@media only screen and (max-width: 960px) {
+    .topview {
+        background-attachment: inherit;
+        background-size: cover;
+        background-position: center center;
+    }
+}
 
 /*----------  page  ----------*/
 
@@ -740,6 +748,13 @@ content: "\f3d1";
     background-attachment: fixed;
     background-position: center center;
 }
+@media only screen and (max-width: 960px) {
+    .career {
+        background-attachment: inherit;
+        background-size: cover;
+        background-position: center center;
+    }
+}
 .career h2 {
     color: #FFF;
 }
@@ -784,6 +799,11 @@ content: "\f3d1";
 .company .row .column {
     margin-bottom: 0;
 }
+@media only screen and (max-width: 960px) {
+    .company .container {
+        width: 100%;
+    }
+}
 /*----------  profile  ----------*/
 
 .page-template-page-work .topview {
@@ -811,6 +831,7 @@ content: "\f3d1";
     padding: 15px 0;
 }
 .post-list .column {
+    margin: 0 0 30px;
     position: relative;
     animation-duration: 1.5s;
     animation-name: fadeup;
