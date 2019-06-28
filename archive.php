@@ -11,12 +11,7 @@
     </section><!-- /topview -->
     <main>
         <?php echo works_introduce(); ?>
-        <div class="archive-menu container">
-            <h3>Produced</h3>
-            <div class="row">
-                <?php echo term_child_directly( 'category' ); ?>
-            </div>
-        </div>
+        <?php echo term_child_directly( 'category' ); ?>
         <article>
             <div class="post-list container">
                 <?php if ( have_posts() ) :

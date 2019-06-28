@@ -289,21 +289,26 @@ function term_child_directly( $taxonomy ) {
         'taxonomy' => $taxonomy
     );
     $categories = get_categories( $args );
-    foreach( $categories as $category ) {
-        $ht .= '<div class="column">';
-        $ht .= '<div><p class="link-style-border '. $category->slug .'"><a href="'. get_category_link( $category->term_id ) .'">'. $category->name .'</a></p>';
-        $params = array( // 親カテゴリIDから子カテゴリーを取得
-            'orderby' => 'menu_order',
-            'parent' => $category->term_id,
-            'hide_empty' => false,
-        );
-        $cat_childs = get_categories( $params );
-        if( $cat_childs ) {
-            $ht .= '<div class="category-child">';
-            foreach( $cat_childs as $cat_child ) {
-                $ht .= '<p class="link-style-border '. $category->slug .'-child ' . $cat_child->slug .'"><a href="'. get_category_link( $cat_child->term_id ) .'">'. $cat_child->name .'</a></p>';
+    if( !empty( $categories ) ) {
+        $ht .= '<div class="archive-menu container"><h3>Produced</h3>';
+        $ht .= '<div class="row">';
+        foreach( $categories as $category ) {
+            $ht .= '<div class="column">';
+            $ht .= '<div><p class="link-style-border '. $category->slug .'"><a href="'. get_category_link( $category->term_id ) .'">'. $category->name .'</a></p>';
+            $params = array( // 親カテゴリIDから子カテゴリーを取得
+                'orderby' => 'menu_order',
+                'parent' => $category->term_id,
+                'hide_empty' => false,
+            );
+            $cat_childs = get_categories( $params );
+            if( $cat_childs ) {
+                $ht .= '<div class="category-child">';
+                foreach( $cat_childs as $cat_child ) {
+                    $ht .= '<p class="link-style-border '. $category->slug .'-child ' . $cat_child->slug .'"><a href="'. get_category_link( $cat_child->term_id ) .'">'. $cat_child->name .'</a></p>';
+                }
+                $ht .= '</div>';
             }
-            $ht .= '</div>';
+            $ht .= '</div></div>';
         }
         $ht .= '</div></div>';
     }

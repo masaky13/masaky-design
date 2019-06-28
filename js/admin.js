@@ -24,55 +24,63 @@ jQuery(function($) {
         custom_uploader.open();
     });
 
-    $('.clone_button').click(function(e) {
+    $('.clone_button').on('click', function (e) {
         e.preventDefault();
-        clone = $(this).prev().clone();
-        cloneindex = parseInt( clone.find('input[type="hidden"]').val() );
-        newindex = cloneindex + 1;
-        console.log( newindex );
+        // 追加ボタンの前にある要素をコピー
+        add_elm = $(this).prev().clone();
+        last_idx = parseInt( add_elm.find('input[type="hidden"].index').val() );
+        new_idx = last_idx + 1;
 
-        clone.find("input").each(function(idx, obj) {
-            if( $(obj).attr('type') != 'button' ) {
+        // 要素のinputを取得し、ループ
+        add_elm.find('input').each(function(idx, obj) {
+            // button以外
+            if($(obj).attr('type') != 'button') {
+                // nameのindexを変更
                 $(obj).attr({
-                    name: $(obj).attr('name').replace(/\[[0-9]\]+$/, '['+ newindex +']')
+                    name: $(obj).attr('name').replace(/\[[0-9]+\]+$/, '['+ new_idx +']')
                 });
-                if( $(obj).attr('name').match( /skill_index/ ) ) {
-                    $(obj).val(newindex);
-                } else {
-                    $(obj).val('');
+                // inputの値をリセット
+                $(obj).val('');
+                // input.indexの場合はindexを書き換え
+                if($(obj).hasClass('index')) {
+                    $(obj).val(new_idx);
                 }
             }
         });
-        clone.find('textarea').each(function(idx, obj) {
+        // 要素のtextareaを取得し、ループ
+        add_elm.find('textarea').each(function(idx, obj) {
             $(obj).attr({
-                name: $(obj).attr('name').replace(/\[[0-9]\]+$/, '['+ newindex +']')
+                // nameのindexを変更
+                name: $(obj).attr('name').replace(/\[[0-9]+\]+$/, '['+ new_idx +']')
             });
             $(obj).val('');
         });
-        $(this).before(clone);
+        // 追加ボタンの前へ追加
+        $(this).before(add_elm);
     });
 
-    $('.delete_button').click(function(e) {
+    $(document).on('click', '.delete_button', function (e) {
         e.preventDefault();
         $(this).parent().remove();
     });
 
+
     $('.fee_item .tax').each(function() {
         if( $(this).prop('checked') === true ) {
-            price = $(this).siblings('.price').val();
+            price = $(this).closest('.fee_item').find('#fee_price').val();
             price = price.replace(/[^0-9]/g, '');
             $tatal = price * 1.08;
-            $(this).siblings('.price').after('<span class="tatal">'+Math.floor($tatal)+'</span>');
+            $(this).siblings('#fee_price').after('<span class="tatal">'+Math.floor($tatal)+'</span>');
         }
     });
     $('.fee_item .tax').change(function() {
         if( $(this).prop('checked') === true ) {
-            price = $(this).siblings('.price').val();
+            price = $(this).closest('.fee_item').find('#fee_price').val();
             price = price.replace(/[^0-9]/g, '');
             $tatal = price * 1.08;
-            $(this).siblings('.price').after('<span class="tatal">'+Math.floor($tatal)+'</span>');
+            $(this).siblings('#fee_price').after('<span class="tatal">'+Math.floor($tatal)+'</span>');
         } else {
-            $(this).siblings('.tatal').remove();
+           $(this).siblings('.tatal').remove();
         }
     });
 });
