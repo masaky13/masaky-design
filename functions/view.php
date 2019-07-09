@@ -228,7 +228,8 @@ function works_introduce() {
     if( $queried_object->parent !== 0 ) {
         // 子categoryの場合の処理
         $parentslug = get_category( $queried_object->parent )->slug;
-        $page = get_page_by_title( $parentslug );
+        $page = '';
+        // $page = get_page_by_title( $parentslug );
     } elseif( $queried_object->parent === 0 ) {
         // 親categoryの場合の処理
         $page = get_page_by_title( $queried_object->slug );
@@ -270,6 +271,11 @@ function works_introduce() {
                 $ht .= '</div>';
             }
             $ht .= '</div>';
+            if( $queried_object->slug === 'web' ) {
+                $ht .= '<p>ドメイン・サーバ代行（21600/年間）も行っております。</p>';
+                $ht .= '<p>●設定内容</p>';
+                $ht .= '<p>・ドメイン取得、管理サーバの管理<br>・DNS、ネームサーバの設定<br>・SSL対応<br>・データベースの設定<br>・サーバトラブル対応<br></p>';
+            }
         }
         $ht .= '<p>御見積もりのご依頼、ご相談は<a href="'. home_url( 'contact' ) .'">お問合せフォーム</a>よりご連絡くださいませ。</p>';
         $ht .= '</div>';
